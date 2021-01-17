@@ -1,6 +1,15 @@
 # =============== #
 # Unity generated #
 # =============== #
+Cubethon/Xcode/
+Cubethon/XcodeSimulator/
+Cubethon/Build/
+Cubethon/Builds/
+Cubethon/Temp/
+Cubethon/Library/
+Cubethon/Logs/
+Cubethon/obj/
+Cubethon/UnityGenerated/
 CosmoBoy2D/Xcode/
 CosmoBoy2D/XcodeSimulator/
 CosmoBoy2D/Build/
