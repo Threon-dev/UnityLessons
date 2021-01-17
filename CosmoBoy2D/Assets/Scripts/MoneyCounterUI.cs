@@ -5,9 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class MoneyCounterUI : MonoBehaviour
 {
-
     private Text moneyCount;
-
     private void Awake()
     {
         moneyCount = GetComponent<Text>();

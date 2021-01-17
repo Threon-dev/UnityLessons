@@ -1,22 +1,24 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class GameMaster : MonoBehaviour
 {
     public static GameMaster gm;
+
+    [SerializeField]
+    private int startingMoney;
+    public static int Money;
+
     [SerializeField]
     private int maxLives = 3;
-
-   private static int _remainingLives;
+    private static int _remainingLives;
     public static int RemainingLives
     {
         get { return _remainingLives; }
     }
-    [SerializeField]
-    private int startingMoney;
-    public static int Money;
+   
+   
     
     private void Awake()
     {
@@ -33,8 +35,11 @@ public class GameMaster : MonoBehaviour
     public string respawnCountdownSoundName="RespawnCountdown";
     public string spawnSoundName="Spawn";
     public string gameOverSoundName = "GameOver";
-
     public CameraShake cameraShake;
+    public UpgradeMenuCallback onToggleUpgradeMenu;
+    public delegate void UpgradeMenuCallback(bool active);
+    private AudioManager audioManager;
+
     [SerializeField]
     private GameObject gameOverUI;
     [SerializeField]
@@ -42,28 +47,20 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private WaveSpawner waveSpawner;
 
-    public delegate void UpgradeMenuCallback(bool active);
-    public UpgradeMenuCallback onToggleUpgradeMenu;
-    //cache
-    private AudioManager audioManager;
-
-
     private void Start()
     {
         if (cameraShake == null)
         {
             Debug.LogError("No cameraShake on the GM");
         }
-        _remainingLives = maxLives;
 
-        Money = startingMoney;
-
-        //caching
         audioManager = AudioManager.instance;
         if (audioManager == null)
         {
             Debug.LogError("FREAK OUT! No audio manager found in Scene");
         }
+        _remainingLives = maxLives;
+        Money = startingMoney;       
     }
     private void Update()
     {
@@ -78,7 +75,6 @@ public class GameMaster : MonoBehaviour
         waveSpawner.enabled = !upgradeMenu.activeSelf;
         onToggleUpgradeMenu.Invoke(upgradeMenu.activeSelf); 
     }
-
     public void EndGame()
     {
         audioManager.PlaySound(gameOverSoundName);
@@ -105,17 +101,14 @@ public class GameMaster : MonoBehaviour
         else
         {
             gm.StartCoroutine(gm.RespawnPlayer());
-        }
-        
+        }       
     }
     public static void KillEnemy(Enemy Enemy)
     {
-        gm._KillEnemy(Enemy);
-       
+        gm._KillEnemy(Enemy);     
     }
     public void _KillEnemy(Enemy _enemy)
-    {
-        //Let's play some sounds
+    {     
         audioManager.PlaySound(_enemy.deathSoundName);
         //GainMoney
         Money += _enemy.moneyDrop;

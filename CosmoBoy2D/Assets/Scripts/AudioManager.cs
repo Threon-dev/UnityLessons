@@ -1,6 +1,6 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 [System.Serializable]
+
 public class Sound
 {
     public string name;
@@ -25,7 +25,6 @@ public class Sound
         source.clip = clip;
         source.loop = loop;
     }
-
     public void Play()
     {
         source.volume = volume*(1+Random.Range(-randomVolume/2f,randomVolume/2f));
@@ -68,7 +67,6 @@ public class AudioManager : MonoBehaviour
         }
         PlaySound("Music");
     }
-
     public void PlaySound(string _name)
     {
         for(int i = 0; i < sounds.Length; i++)
@@ -78,9 +76,7 @@ public class AudioManager : MonoBehaviour
                 sounds[i].Play();
                 return;
             }
-        }
-
-        //No sound with _name
+        }       
         Debug.LogWarning("AudioManager: Sound not found in list:  " + _name);
     }
     public void StopSound(string _name)
@@ -92,11 +88,7 @@ public class AudioManager : MonoBehaviour
                 sounds[i].Stop();
                 return;
             }
-        }
-
-        //No sound with _name
+        }      
         Debug.LogWarning("AudioManager: Sound not found in list:  " + _name);
     }
-
-
 }

@@ -23,16 +23,19 @@ public class WaveUI : MonoBehaviour
             Debug.LogError("No spawner referenced");
             this.enabled = false;
         }
+
         if (waveAnimator == null)
         {
             Debug.LogError("No waveAnimator referenced");
             this.enabled = false;
         }
+
         if (waveCountdownObject == null)
         {
             Debug.LogError("No waveCountdownObjet referenced");
             this.enabled = false;
         }
+
         if (waveCount == null)
         {
             Debug.LogError("No waveCount referenced");
@@ -62,8 +65,8 @@ public class WaveUI : MonoBehaviour
             waveAnimator.SetBool("WaveCoundown", true);
             Debug.Log("Counting");
         }
-        waveCountdownObject.text = ((int)spawner.WaveCountdown).ToString();
-       
+
+        waveCountdownObject.text = ((int)spawner.WaveCountdown).ToString();      
     }
     void UpdateSpawningUI()
     {

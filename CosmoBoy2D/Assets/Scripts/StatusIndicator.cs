@@ -5,15 +5,16 @@ public class StatusIndicator : MonoBehaviour
 {
     [SerializeField]
     private RectTransform healthBarRect;
+
     [SerializeField]
     private Text healthText;
-
     private void Start()
     {
         if (healthBarRect == null)
         {
             Debug.LogError("Status Indicator:No healthBar object referenced!");
         }
+
         if (healthText == null)
         {
             Debug.LogError("Status Indicator:No healthText object referenced!");

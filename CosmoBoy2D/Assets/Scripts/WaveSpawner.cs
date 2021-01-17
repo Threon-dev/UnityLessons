@@ -7,7 +7,7 @@ public class WaveSpawner : MonoBehaviour
     public enum SpawnState { SPAWNING,WAITING,COUNTING};
 
     [System.Serializable]
-   public class Wave
+    public class Wave
     {
         public string name;
         public Transform enemy;
@@ -23,6 +23,7 @@ public class WaveSpawner : MonoBehaviour
 
     public Transform[] spawnPoint;
 
+    private float searchCountdown = 1f;
     public float timeBetweenWaves = 5f;
     private float waveCountdown;
     public float WaveCountdown
@@ -30,21 +31,19 @@ public class WaveSpawner : MonoBehaviour
         get { return waveCountdown+1; }
     }
 
-    private float searchCountdown = 1f;
-
     private SpawnState state = SpawnState.COUNTING;
     public SpawnState State
     
     {
         get { return state; }
     }
-
     private void Start()
     {
         if (spawnPoint.Length == 0)
         {
-            Debug.LogError("No spawn points referenced.");
+            Debug.LogError("No spawn points referencd.");
         }
+
         waveCountdown = timeBetweenWaves;
     }
     private void Update()
@@ -78,6 +77,7 @@ public class WaveSpawner : MonoBehaviour
         Debug.Log("Wave completed!");
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
+
         if (nextWave + 1 > waves.Length - 1)
         {
             nextWave = 0;
@@ -91,6 +91,7 @@ public class WaveSpawner : MonoBehaviour
     bool EnemyIsAlive()
     {
         searchCountdown -= Time.deltaTime;
+
         if (searchCountdown <= 0f)
         {
             searchCountdown = 1f;
@@ -99,6 +100,7 @@ public class WaveSpawner : MonoBehaviour
                 return false;
             }
         }
+
         return true;
     }
     IEnumerator SpawnWave(Wave _wave)

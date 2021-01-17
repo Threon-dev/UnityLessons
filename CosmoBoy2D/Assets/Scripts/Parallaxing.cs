@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Parallaxing : MonoBehaviour
 {
@@ -9,7 +7,6 @@ public class Parallaxing : MonoBehaviour
     public float smoothing=1f;
     public Transform cam;
     public Vector3 PreviousCamPos;
-
     private void Awake()
     {
         cam = Camera.main.transform;
@@ -24,8 +21,6 @@ public class Parallaxing : MonoBehaviour
             parallaxScales[i] = backgrounds[i].position.z * -1;
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
         for (int i = 0; i < backgrounds.Length; i++)
@@ -38,6 +33,7 @@ public class Parallaxing : MonoBehaviour
 
             backgrounds[i].position = Vector3.Lerp(backgrounds[i].position, backgroundTargetPos, smoothing * Time.deltaTime);
         }
+
         PreviousCamPos = cam.position;
     }
 }

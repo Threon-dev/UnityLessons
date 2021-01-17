@@ -1,4 +1,4 @@
-﻿ using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
@@ -7,10 +7,12 @@ public class MenuManager : MonoBehaviour
     string hoverOverSound = "ButtonHover";
     [SerializeField]
     string pressButtonSound = "ButtonPress";
+
     AudioManager audioManager;
     private void Start()
     {
         audioManager = AudioManager.instance;
+
         if (audioManager == null)
         {
             Debug.LogError("No audioManager found in MENU");
@@ -21,7 +23,6 @@ public class MenuManager : MonoBehaviour
         audioManager.PlaySound(pressButtonSound);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
-
     public void QuitGame()
     {
         audioManager.PlaySound(pressButtonSound);
@@ -31,6 +32,5 @@ public class MenuManager : MonoBehaviour
     public void OnMouseOver()
     {
         audioManager.PlaySound(hoverOverSound);
-    }
-  
+    } 
 }

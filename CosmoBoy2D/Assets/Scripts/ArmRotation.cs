@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ArmRotation : MonoBehaviour
 {
-    public int rotationOffset = 90;
-   
-    // Update is called once per frame
+    public int rotationOffset = 90;  
     void Update()
     {
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;

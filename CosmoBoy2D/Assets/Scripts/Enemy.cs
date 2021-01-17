@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 [RequireComponent(typeof(EnemyAI))]
 public class Enemy : MonoBehaviour
@@ -15,9 +14,8 @@ public class Enemy : MonoBehaviour
         public int curHealth 
         {
          get { return _curHealth; }
-            set { _curHealth = Mathf.Clamp(value, 0, maxHealth); }
+         set { _curHealth = Mathf.Clamp(value, 0, maxHealth); }
         }
-
         public void Init()
         {
             curHealth = maxHealth;
@@ -34,9 +32,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Optional:  ")]
     [SerializeField]
-    private StatusIndicator statusIndicator;
-    
-
+    private StatusIndicator statusIndicator;    
     public void Start()
     {
         
@@ -52,12 +48,9 @@ public class Enemy : MonoBehaviour
         }
         GameMaster.gm.onToggleUpgradeMenu += OnUpgradeMenuToggle;
     }
-
-
     void OnUpgradeMenuToggle(bool active)
     {
-        GetComponent<EnemyAI>().enabled = !active;
-        
+        GetComponent<EnemyAI>().enabled = !active;        
     }
     public void DamageEnemy(int damage)
     {
@@ -71,7 +64,6 @@ public class Enemy : MonoBehaviour
         {
             statusIndicator.SetHealth(_enemyStats.curHealth, _enemyStats.maxHealth);
         }
-
     }
     private void OnCollisionEnter2D(Collision2D _colInfo)
     {

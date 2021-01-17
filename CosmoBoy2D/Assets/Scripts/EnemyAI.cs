@@ -22,13 +22,14 @@ public class EnemyAI : MonoBehaviour
     //The AI's speed per second
     public float speed = 300f;
     public ForceMode2D fMode;
-    [HideInInspector]
-    public bool pathIsEnded = false;
-    private bool searchForPlayer = false;
     //The max distance from AI to waypoint for it to continue to the next waypoint
     public float nextWayPointDistance = 3;
     public float timeForSearchPlayer = 0.5f;
 
+    [HideInInspector]
+    public bool pathIsEnded = false;
+    private bool searchForPlayer = false;
+    
     private void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -98,8 +99,8 @@ public class EnemyAI : MonoBehaviour
                 StartCoroutine(SearchForPlayer());
             }
             return;
-        }
-        //TODO:Always look at player
+        } 
+        
         if (path == null)      
           return;
         
@@ -111,7 +112,6 @@ public class EnemyAI : MonoBehaviour
             pathIsEnded = true;
             return;
         }
-
         pathIsEnded = false;
 
         //Direction to the next point
@@ -126,6 +126,5 @@ public class EnemyAI : MonoBehaviour
             currentWaypoint++;
             return;
         }
-
     } 
 }

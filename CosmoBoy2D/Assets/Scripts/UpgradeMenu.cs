@@ -5,18 +5,20 @@ public class UpgradeMenu : MonoBehaviour
 {
     [SerializeField]
     private Text healthText;
+
     [SerializeField]
     private Text speedText;
+
     [SerializeField]
     private float healthMultiplier = 1.2f;
 
     [SerializeField]
     private float speedMultiplier = 1.2f;
+
     [SerializeField]
     private int upgradeCost = 50;
-    private PlayerStats stats;
 
-    
+    private PlayerStats stats;   
     void OnEnable()
     {
         stats = PlayerStats.instance;

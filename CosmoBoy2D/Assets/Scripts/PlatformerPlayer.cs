@@ -1,44 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlatformerPlayer : MonoBehaviour
 {
-    [SerializeField]
-    string landingSoundName = "LandingFootsteps";
-    private BoxCollider2D _box;
     public float JumpForce = 12.0f;
-   
+    public float checkRadius = 0.1f;
+
+    private BoxCollider2D _box;
     private Rigidbody2D _body;
     private Animator anim;
-    Transform playerGraphics;
-    AudioManager audioManager;
-    
-   
-   
 
+    public LayerMask Ground;
+    public bool onGround;
+    public Transform GroundCheck;
+    Transform playerGraphics;
     private void Awake()
     {
         playerGraphics = transform.Find("Graphics");
+
         if (playerGraphics == null)
         {
             Debug.LogError("Let's freak out! There is no 'Graphics' object as a child of a player!");
         }
     }
-    // Start is called before the first frame update
     void Start()
     {
         _body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         _box = GetComponent<BoxCollider2D>();
-        audioManager = AudioManager.instance;
-        if (audioManager == null)
-        {
-            Debug.LogError("No audioManager found in Weapon script");
-        }
     }
-
-    // Update is called once per frame
     void Update()
     {
         float deltaX = Input.GetAxis("Horizontal") * PlayerStats.instance.speed *100* Time.deltaTime;
@@ -49,37 +38,35 @@ public class PlatformerPlayer : MonoBehaviour
         Vector2 corner1 = new Vector2(max.x, min.y - .1f);
         Vector2 corner2 = new Vector2(min.x, min.y - .2f);
         Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
-        bool grounded = false;
-        if (hit != null)
-        { 
-            grounded = true;
-        }
-        _body.gravityScale = grounded && deltaX == 0 ? 0 : 1;
-        if (grounded && Input.GetKeyDown(KeyCode.Space))
+        CheckingGround();
+        bool wasGrouned = onGround;
+        
+        if (onGround==true && Input.GetKeyDown(KeyCode.Space))
         {
             _body.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
-
-        }
-       
-       
+        }  
+        
         anim.SetFloat("speed", Mathf.Abs(deltaX));
+        
         if (!Mathf.Approximately(deltaX, 0))
         {
             playerGraphics.localScale = new Vector3(Mathf.Sign(deltaX), 1, 1);
         }
 
-       
-        if (Input.GetKeyDown(KeyCode.Space)&& grounded==true)
+        if (onGround == true && Input.GetKeyDown(KeyCode.Space))
         {
-            anim.SetBool("grounded", false);
+            anim.SetBool("isGrounded", false);
         }
         else
         {
-            anim.SetBool("grounded", true);
-           
+            if (onGround == true)
+            {
+             anim.SetBool("isGrounded", true);    
+            }              
         }
-
-      
     }
-   
+   void CheckingGround()
+    {
+        onGround = Physics2D.OverlapCircle(GroundCheck.position, checkRadius, Ground);
+    }
 }

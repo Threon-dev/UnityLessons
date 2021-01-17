@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 public class CameraShake : MonoBehaviour
 {
@@ -11,8 +11,7 @@ public class CameraShake : MonoBehaviour
     {
         if (mainCam == null)
             mainCam = Camera.main;
-    }
-  
+    } 
     public void Shake(float amt,float leght)
     {
         shakeAmount = amt;
@@ -30,11 +29,9 @@ public class CameraShake : MonoBehaviour
             camPos.x += offsetX;
             camPos.y += offsetY;
 
-            mainCam.transform.position = camPos;
-            
+            mainCam.transform.position = camPos;            
         }
     }
-
     void StopShake()
     {
         CancelInvoke("DoShake");
