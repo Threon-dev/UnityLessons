@@ -8,8 +8,9 @@ public class Bullet : MonoBehaviour
     public float explosionRadius = 0f;
     public GameObject impactEffect;
 
-
-    public void Seek(Transform _target)
+    public int damage;
+ 
+    public void Seek(Transform _target) 
     {
         target = _target;
     }
@@ -25,9 +26,10 @@ public class Bullet : MonoBehaviour
 
         if (dir.magnitude <= distanceThisFrame)
         {
-            HitTarget();
+            HitTarget();           
             return;
         }
+
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
         transform.LookAt(target);
     }
@@ -44,8 +46,7 @@ public class Bullet : MonoBehaviour
         {
             Damage(target);
         }
-
-        
+     
         Destroy(gameObject);
     }
     void Explode()
@@ -61,7 +62,9 @@ public class Bullet : MonoBehaviour
     }
     void Damage(Transform enemy)
     {
-        Destroy(enemy.gameObject);
+        Enemy e = enemy.GetComponent<Enemy>();
+        if (e!=null)
+            e.HasDamaged(damage);   
     }
     private void OnDrawGizmosSelected()
     {

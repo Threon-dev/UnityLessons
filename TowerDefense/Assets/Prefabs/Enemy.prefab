@@ -107,3 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  enemyDeathCost: 10
+  enemyHealth: 100
+  enemyDeathParticle: {fileID: 2127595253887464768, guid: 788086e23ec42c94fbd40f50fb582751,
+    type: 3}

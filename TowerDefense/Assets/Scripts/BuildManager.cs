@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
@@ -11,14 +10,14 @@ public class BuildManager : MonoBehaviour
             return;
         }
         instance = this;
-    }
-  
-    public GameObject standartTurretPrefab;
-    public GameObject missileTurretPrefab;
+    } 
    
     private TurretBlueprint turretToBuild;
 
+    public GameObject buildEffect;
+
     public bool CanBuild { get { return turretToBuild != null; } }
+    public bool HasMoney { get { return PlayerStats.Money >= turretToBuild.cost; } }
 
     public void BuildTurretOn(Node node)
     {
@@ -27,8 +26,11 @@ public class BuildManager : MonoBehaviour
             Debug.Log("Not enough money");
             return;
         }
+
         PlayerStats.Money -= turretToBuild.cost;
         GameObject turret=(GameObject)Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
+        GameObject buildEffectObject = (GameObject)Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity);
+        Destroy(buildEffectObject, 2f);
         node.turret = turret;
         Debug.Log("Money:" + PlayerStats.Money);
     }
