@@ -13,6 +13,9 @@ public class PlatformerPlayer : MonoBehaviour
     public bool onGround;
     public Transform GroundCheck;
     Transform playerGraphics;
+
+    AudioManager audioManager;
+    public string landingSound = "LandingFootsteps";
     private void Awake()
     {
         playerGraphics = transform.Find("Graphics");
@@ -27,6 +30,13 @@ public class PlatformerPlayer : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         _box = GetComponent<BoxCollider2D>();
+
+        audioManager = AudioManager.instance;
+
+        if (audioManager == null)
+        {
+            Debug.LogError("No audioManager found in PlatformerPlayer script");
+        }
     }
     void Update()
     {
@@ -39,7 +49,7 @@ public class PlatformerPlayer : MonoBehaviour
         Vector2 corner2 = new Vector2(min.x, min.y - .2f);
         Collider2D hit = Physics2D.OverlapArea(corner1, corner2);
         CheckingGround();
-        bool wasGrouned = onGround;
+        bool wasGrouned = false;
         
         if (onGround==true && Input.GetKeyDown(KeyCode.Space))
         {
@@ -56,13 +66,26 @@ public class PlatformerPlayer : MonoBehaviour
         if (onGround == true && Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("isGrounded", false);
+            wasGrouned = false;
         }
         else
         {
             if (onGround == true)
             {
-             anim.SetBool("isGrounded", true);    
+                anim.SetBool("isGrounded", true);
+                wasGrouned = true;
             }              
+        }
+
+        if (onGround == true)
+        {
+            if (onGround != wasGrouned && onGround!=true)
+            {
+                audioManager.PlaySound(landingSound);
+                Debug.Log("Grounded");
+                wasGrouned = false;
+            }
+      
         }
     }
    void CheckingGround()

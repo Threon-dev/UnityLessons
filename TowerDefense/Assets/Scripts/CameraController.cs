@@ -2,7 +2,6 @@
 
 public class CameraController : MonoBehaviour
 {
-    private bool doMovement = true;
 
     public float panSpeed = 30f;
     public float panBoarderThickness = 10f;
@@ -14,12 +13,6 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         if (GameManager.gameIsOver == true)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            doMovement = !doMovement;
-
-        if (!doMovement)
             return;
 
         if (Input.GetKey("w")|| Input.mousePosition.y>=Screen.height-panBoarderThickness)

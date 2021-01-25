@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     public float startSpeed = 10f;
@@ -8,23 +9,29 @@ public class Enemy : MonoBehaviour
 
     public int worth;
 
-    public float enemyHealth = 100;
+    public float enemyStartHealth = 100;
+    private float enemyHealth;
 
     public GameObject enemyDeathParticle;
+
+    [Header("Unity Stuff")]
+    public Image healthBar;
 
     private void Start()
     {
         speed = startSpeed;
-    }
+        enemyHealth = enemyStartHealth;
+    } 
 
     public void HasDamaged(float amount)
     {
         enemyHealth -= amount;
+
+        healthBar.fillAmount = enemyHealth/enemyStartHealth;
+
         if (enemyHealth <= 0)
-        {
-            GameObject enemyParticles=(GameObject)Instantiate(enemyDeathParticle, transform.position, transform.rotation);
-            Die();
-            Destroy(enemyParticles, 3f);
+        {       
+            Die();          
         }
     }
     public void Slow(float pct)
@@ -32,9 +39,11 @@ public class Enemy : MonoBehaviour
         speed = startSpeed * (1f - pct);
     }
     public void Die()
-    {
+    {      
         PlayerStats.Money += worth;
-        Destroy(gameObject);        
+        Destroy(gameObject);
+        GameObject enemyParticles = (GameObject)Instantiate(enemyDeathParticle, transform.position, transform.rotation);
+        Destroy(enemyParticles, 3f);
     }
    
     
