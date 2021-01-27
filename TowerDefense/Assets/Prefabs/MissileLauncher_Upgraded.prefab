@@ -268,15 +268,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 40
+  standartBullet: 0
+  standartBulletSound: StandartBulletSound
   bulletPrefab: {fileID: 7793746345111731258, guid: 206e7a1745e57f94eaf1ba88d23b99bb,
     type: 3}
   fireRate: 0.35
   useLaser: 0
+  onEnableLaser: 0
   damageOverTime: 30
   slowPct: 0.5
   lineRenderer: {fileID: 0}
   impactEffect: {fileID: 0}
   impactLight: {fileID: 0}
+  laserSound: LaserSound
+  missile: 1
+  missileSound: MissileSound
   enemyTag: Enemy
   partToRotate: {fileID: 8456616055504625248}
   turnSpeed: 10

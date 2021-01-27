@@ -9,9 +9,14 @@ public class GameManager : MonoBehaviour
 
     public GameObject completeLevelUI;
 
+    AudioManager audioManager;
+
+    public string endGameSound = "GameOver";
+
     private void Start()
     {
         gameIsOver = false;
+        audioManager = AudioManager.instance;
     }
     void Update()
     {
@@ -26,7 +31,8 @@ public class GameManager : MonoBehaviour
     void EndGame()
     {
         gameIsOver = true;
-        gameOverUI.SetActive(true); 
+        gameOverUI.SetActive(true);
+        audioManager.PlaySound(endGameSound);
     }
     
     public void WinLevel() 

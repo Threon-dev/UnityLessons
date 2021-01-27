@@ -9,7 +9,19 @@ public class Bullet : MonoBehaviour
     public GameObject impactEffect;
 
     public int damage;
- 
+
+    AudioManager audioManager;
+    public string explosionSound = "MissileExplosion";
+
+    private void Start()
+    {
+        audioManager = AudioManager.instance;
+
+        if (audioManager == null)
+        {
+            Debug.LogError("No audioManager found in scene");
+        }
+    }
     public void Seek(Transform _target) 
     {
         target = _target;
@@ -59,6 +71,7 @@ public class Bullet : MonoBehaviour
                 Damage(collider.transform); 
             }
         }
+        audioManager.PlaySound(explosionSound);
     }
     void Damage(Transform enemy)
     {

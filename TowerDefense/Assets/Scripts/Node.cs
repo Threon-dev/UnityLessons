@@ -16,12 +16,20 @@ public class Node : MonoBehaviour
     public bool isUpgraded = false; 
 
     BuildManager buildManager;
-    
+
+    AudioManager audioManager;
+    public string buildingComplete = "BuildingComplete";
     private void Start()
     {
         rend = GetComponent<Renderer>();
         startColor = rend.material.color;
         buildManager = BuildManager.instance;
+        audioManager = AudioManager.instance;
+
+        if (audioManager == null)
+        {
+            Debug.LogError("No audioManager found in scene");
+        }
     }
 
     public Vector3 GetBuildPosition()
@@ -64,6 +72,8 @@ public class Node : MonoBehaviour
         Destroy(buildEffectObject, 2f);
 
         Debug.Log("Turret build");
+
+        audioManager.PlaySound(buildingComplete);
     }
 
     public void UpgradeTurret()

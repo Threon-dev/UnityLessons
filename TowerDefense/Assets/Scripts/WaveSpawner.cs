@@ -13,10 +13,12 @@ public class WaveSpawner : MonoBehaviour
     public Text waveCountdownText;
 
     public float timeBetweenWaves = 5f;
-    private float countdown = 2f;
+    private float countdown = 10f;
     public float spawnCountdown = 0.5f;
 
     public GameManager gm;
+
+    public GameObject nextWaveButton;
 
     private int waveIndex = 0;
 
@@ -27,6 +29,11 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.gameIsOver == true)
+        {
+            this.enabled = false;
+        }
+
         if (EnemiesAlive > 0)
         {
             return;
@@ -42,7 +49,15 @@ public class WaveSpawner : MonoBehaviour
         {
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
+            nextWaveButton.SetActive(false);
             return;
+        }
+        else
+        {
+            if (GameManager.gameIsOver == false)
+            {
+                nextWaveButton.SetActive(true);
+            }
         }
 
         countdown -= Time.deltaTime;
@@ -71,5 +86,12 @@ public class WaveSpawner : MonoBehaviour
     {
         Instantiate(enemy,spawnPoint.position,spawnPoint.rotation);
         Debug.Log("Enemies Alive: " + EnemiesAlive);
+    }
+
+    public void NextWaveSpawn()
+    {
+        countdown = 0;
+        waveCountdownText.text = string.Format("{0:00.00}", countdown);
+        Debug.Log("NextWaveSpawn");
     }
 }

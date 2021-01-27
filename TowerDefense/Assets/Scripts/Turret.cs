@@ -8,12 +8,16 @@ public class Turret : MonoBehaviour
     public float range = 15f;
 
     [Header("Use Bullets(default)")]
+    public bool standartBullet = false;
+    public string standartBulletSound = "StandartBulletSound";
+
     public GameObject bulletPrefab;
     public float fireRate = 1f;
     private float fireCountdown = 0f;
 
     [Header("Use Laser")]
     public bool useLaser = false;
+    public bool onEnableLaser = false;
     
     public int damageOverTime = 30;
     public float slowPct = 0.5f;
@@ -21,6 +25,13 @@ public class Turret : MonoBehaviour
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
+
+    public string laserSound = "LaserSound";
+
+    [Header("Use missile")]
+    public bool missile = false;
+
+    public string missileSound = "MissileSound";
 
     [Header("Unity Setup Fields")]
 
@@ -30,9 +41,23 @@ public class Turret : MonoBehaviour
     public float turnSpeed = 10f;
     
     public Transform firePoint;
+
+    AudioManager audioManager;
+
+    AudioSource audioSource;
+
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+
+        audioSource = GetComponent<AudioSource>();
+
+        audioManager = AudioManager.instance;
+
+        if (audioManager == null)
+        {
+            Debug.LogError("No audioManager found in scene");
+        }
     }
     void UpdateTarget()
     {
@@ -76,13 +101,12 @@ public class Turret : MonoBehaviour
                     lineRenderer.enabled = false;
                     impactEffect.Stop();
                     impactLight.enabled = false;
-                }
-                    
+                    audioSource.Stop();
+                }                    
             }
             return;
         }
-           
-
+             
         LockOnTarget();
 
         if (useLaser)
@@ -119,8 +143,9 @@ public class Turret : MonoBehaviour
             lineRenderer.enabled = true;
             impactEffect.Play();
             impactLight.enabled = true;
+            audioSource.Play();
         }
-           
+          
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, target.position);
 
@@ -138,6 +163,12 @@ public class Turret : MonoBehaviour
         {
             bullet.Seek(target);
         }
+
+        if (missile == true)
+            audioManager.PlaySound(missileSound);
+
+        if (standartBullet == true)
+            audioManager.PlaySound(standartBulletSound);
     }
     void OnDrawGizmosSelected()
     {
