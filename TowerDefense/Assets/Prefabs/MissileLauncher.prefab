@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 2116860478730616916}
   m_Layer: 0
   m_Name: MissileLauncher
-  m_TagString: Untagged
+  m_TagString: turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,20 +268,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 30
+  standartBullet: 0
+  standartBulletSound: StandartBulletSound
   bulletPrefab: {fileID: 7793746345111731258, guid: 66f22a767edd6f94cb18c7183a989c15,
     type: 3}
   fireRate: 0.25
   useLaser: 0
+  onEnableLaser: 0
   damageOverTime: 30
   slowPct: 0.5
   lineRenderer: {fileID: 0}
   impactEffect: {fileID: 0}
   impactLight: {fileID: 0}
+  laserSound: LaserSound
+  missile: 1
+  missileSound: MissileSound
   enemyTag: Enemy
   partToRotate: {fileID: 8456616055504625248}
   turnSpeed: 10
   firePoint: {fileID: 6584138230876311299}
-  am: {fileID: -8546098167614030708, guid: cea5f3916e5475a408172b473e6d8d1a, type: 3}
-  missile: 1
-  missileSound: MissileSound
-  standartBullet: 0

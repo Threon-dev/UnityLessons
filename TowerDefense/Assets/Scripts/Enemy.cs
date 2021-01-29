@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public int worth;
 
     public float enemyStartHealth = 100;
-    private float enemyHealth;
+    public float enemyHealth;
 
     public GameObject enemyDeathParticle;
 
@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public Image healthBar;
 
     private bool isDead = false;
+    public bool shieldIsOn = false;
     private void Start()
     {
         speed = startSpeed;
@@ -26,13 +27,16 @@ public class Enemy : MonoBehaviour
 
     public void HasDamaged(float amount)
     {
-        enemyHealth -= amount;
+        if(shieldIsOn == false)
+        {
+            enemyHealth -= amount;
 
-        healthBar.fillAmount = enemyHealth/enemyStartHealth;
+            healthBar.fillAmount = enemyHealth / enemyStartHealth;
 
-        if (enemyHealth <= 0 &&!isDead)
-        {       
-            Die();          
+            if (enemyHealth <= 0 && !isDead)
+            {
+                Die();
+            }
         }
     }
     public void Slow(float pct)

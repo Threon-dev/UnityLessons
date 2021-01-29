@@ -4740,7 +4740,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4914,3 +4914,4 @@ MonoBehaviour:
   impactEffect: {fileID: 5998996706381383947, guid: 3aae99f9e774be04b863a7ee79d244d8,
     type: 3}
   damage: 50
+  explosionSound: MissileExplosion
