@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 435436069018389256}
   - component: {fileID: 7317820256380311428}
   - component: {fileID: 3520537043548170525}
+  - component: {fileID: -7267566170546501483}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,3 +98,17 @@ MonoBehaviour:
   impactEffect: {fileID: 4867141351363215446, guid: 7627e62c2990f7043bc762bb0a396e96,
     type: 3}
   damage: 25
+  explosionSound: MissileExplosion
+--- !u!135 &-7267566170546501483
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937615353136997947}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.49999997
+  m_Center: {x: 0, y: 0, z: 0}

@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2556173716125622932}
   - component: {fileID: 8803661354152040859}
+  - component: {fileID: 4379946220345248007}
   m_Layer: 0
   m_Name: StandartTurret
   m_TagString: turret
@@ -78,6 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 15
+  turretHealth: 100
+  destroyParticles: {fileID: 5998996706381383947, guid: 3aae99f9e774be04b863a7ee79d244d8,
+    type: 3}
   standartBullet: 1
   standartBulletSound: StandartBulletSound
   bulletPrefab: {fileID: 4937615353136997947, guid: 90a70e32caeb0b6448ff53f1e1e941bb,
@@ -93,10 +97,25 @@ MonoBehaviour:
   laserSound: LaserSound
   missile: 0
   missileSound: MissileSound
+  boomEffect: {fileID: 919681586616969266, guid: 3aae99f9e774be04b863a7ee79d244d8,
+    type: 3}
   enemyTag: Enemy
   partToRotate: {fileID: 8022512272421131840}
   turnSpeed: 10
   firePoint: {fileID: 8759193299501797540}
+--- !u!65 &4379946220345248007
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896530200859506734}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4186801, y: 1.6444936, z: 1.3104615}
+  m_Center: {x: 0.02025646, y: 0.7677095, z: 0.0067489147}
 --- !u!1 &3010382600027006777
 GameObject:
   m_ObjectHideFlags: 0

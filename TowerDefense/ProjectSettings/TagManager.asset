@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Enemy
   - turret
+  - Bullet
+  - Shield
+  - ShieldParticles
+  - Meteor
   layers:
   - Default
   - TransparentFX

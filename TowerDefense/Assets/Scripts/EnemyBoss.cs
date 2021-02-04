@@ -4,16 +4,29 @@ using UnityEngine;
 public class EnemyBoss : MonoBehaviour
 {
     private Node turretTarget;
-    private Transform target;
+
+    [HideInInspector]
+    public Transform target;
 
     Enemy enemy;
 
+    public GameObject cam;
+
     [Header("Destroy")]
     public bool CanDestroy = false;
+    public bool hasMeteor = true;
+    private bool timeToDropMeteor = false;
+
+    public GameObject meteorPrefab;
+    public Transform spawnPosit;
+    public GameObject targetSelectedParticle;
+    public Transform particleSpawnPosit;
 
     public float range = 15f;
     public float destroyCountdown = 10f;
     public float nextTimeToDestroy = 10f;
+
+    public float stopSpeedRate = 2f;
 
     public string turretTag = "turret";
 
@@ -27,18 +40,17 @@ public class EnemyBoss : MonoBehaviour
     [Header("Shield Settings")]
     public bool HasShield = false;
 
-    public GameObject shield;
+    public Transform boss;
+    public GameObject shieldGO;
+    public float shieldTimer = 10f;
 
     private bool shieldIsBroken = false;
-    public float shieldTimer = 10f;
+    [HideInInspector]
+    public bool shieldOff = false;
 
     private void Start()
     {
         enemy = GetComponent<Enemy>();
-    }
-    IEnumerator DestroyTurret()
-    {
-        yield return new WaitForSeconds(2f);
     }
 
     void RegenHealth()
@@ -48,14 +60,22 @@ public class EnemyBoss : MonoBehaviour
         Debug.Log("Current boss health" + enemy.enemyHealth);
     }
 
-    void GetShield()
-    { 
+    IEnumerator GetShield()
+    {
+        InvokeRepeating("Destroy", shieldTimer + 2f, .2f);
         enemy.shieldIsOn = true;
-        shield.SetActive(true);
+        shieldIsBroken = true;
+        GameObject shieldObj = (GameObject)Instantiate(shieldGO,boss);
+        yield return new WaitForSeconds(shieldTimer);
+        enemy.shieldIsOn = false;
+        yield return new WaitForSeconds(1f);
+        Destroy(shieldObj); 
     }
 
     private void Update()
     {
+
+
         if(HasRegenHealth == true)
         {
             timeToRegen -= Time.deltaTime;
@@ -71,31 +91,41 @@ public class EnemyBoss : MonoBehaviour
         }
 
         if(HasShield == true)
-        {
+        { 
             if (shieldIsBroken == false && enemy.enemyHealth <= enemy.enemyStartHealth / 2f)
             {
-                GetShield();
+                StartCoroutine(GetShield());
                 shieldTimer -= Time.deltaTime;
-            }
-
-            if (shieldTimer <= 0f)
-            {
-                enemy.shieldIsOn = false;
-                shield.SetActive(false);
-                shieldIsBroken = true;
-            }
-            
+            }            
         }
 
         if (CanDestroy == true)
         {
-            FindTurret();
+            destroyCountdown -= Time.deltaTime;
 
-            destroyCountdown -= Time.deltaTime;            
+            if(hasMeteor == true)
+            {
+                FindTurret();           
+            }
+
+            if (destroyCountdown <= 0 && hasMeteor == true)
+            {
+                timeToDropMeteor = true;
+
+                if (enemy.startSpeed <= 0)
+                {
+                    StartCoroutine(DropTheMeteor());               
+                }
+            }
+        }
+
+        if (timeToDropMeteor && enemy.startSpeed >= 0f)
+        {
+            enemy.startSpeed -= Time.deltaTime * stopSpeedRate;
         }
     }
 
-    void FindTurret()
+    public void FindTurret()
     {
         GameObject[] turrets = GameObject.FindGameObjectsWithTag(turretTag);
         float shortestDistance = Mathf.Infinity;
@@ -126,25 +156,31 @@ public class EnemyBoss : MonoBehaviour
             target = null;
         }
 
-        if (destroyCountdown <= 0f)
+        if (target != null)
         {
-            if (target != null)
-            {
-                Destroy(nearestTurret);
-                destroyCountdown = nextTimeToDestroy;
-                StartCoroutine(Stopped());          
-                return;
-            }
-            else
-            {
-                destroyCountdown = nextTimeToDestroy;
-            }
-        }       
+            Vector3 spawnPos = new Vector3(target.position.x, cam.transform.position.y + 5f, target.position.z);
+            spawnPosit.transform.position = spawnPos;
+            Vector3 targetSelected = new Vector3(target.position.x, target.position.y + 5f, target.position.z);
+            particleSpawnPosit.transform.position = targetSelected;
+        }
     }
-    IEnumerator Stopped()
+    IEnumerator DropTheMeteor()
     {
-        enemy.startSpeed = 0f;
-        yield return new WaitForSeconds(3);
+        hasMeteor = false;
+        GameObject meteor = (GameObject)Instantiate(meteorPrefab, spawnPosit.position,spawnPosit.rotation);
+        GameObject targetSel = (GameObject)Instantiate(targetSelectedParticle, particleSpawnPosit.position,particleSpawnPosit.rotation);
+        Destroy(targetSel,2f);
+        Destroy(meteor, 10f);
+        yield return new WaitForSeconds(3f);
+        timeToDropMeteor = false;
+        destroyCountdown = nextTimeToDestroy;
         enemy.startSpeed = 2.5f;
+        hasMeteor = true;
     }
+    private void Destroy()
+    {
+        GameObject destroy = GameObject.FindGameObjectWithTag("ShieldParticles");
+        Destroy(destroy);
+    }
+    
 }

@@ -4874,9 +4874,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4877387585227537210}
   - component: {fileID: -973946660700170800}
+  - component: {fileID: 4466739208362150929}
   m_Layer: 0
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4915,3 +4916,16 @@ MonoBehaviour:
     type: 3}
   damage: 50
   explosionSound: MissileExplosion
+--- !u!65 &4466739208362150929
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7793746345111731258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.001, y: 0.001, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0.008}

@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public int worth;
 
     public float enemyStartHealth = 100;
+    [HideInInspector]
     public float enemyHealth;
 
     public GameObject enemyDeathParticle;
@@ -18,6 +19,8 @@ public class Enemy : MonoBehaviour
     public Image healthBar;
 
     private bool isDead = false;
+
+    [HideInInspector]
     public bool shieldIsOn = false;
     private void Start()
     {

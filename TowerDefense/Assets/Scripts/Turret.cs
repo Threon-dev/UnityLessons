@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 public class Turret : MonoBehaviour
 {
     private Transform target;
@@ -6,6 +7,9 @@ public class Turret : MonoBehaviour
 
     [Header("General")]
     public float range = 15f;
+    public int turretHealth = 100;
+
+    public GameObject destroyParticles;
 
     [Header("Use Bullets(default)")]
     public bool standartBullet = false;
@@ -35,6 +39,8 @@ public class Turret : MonoBehaviour
 
     [Header("Unity Setup Fields")]
 
+    public GameObject boomEffect;
+
     public string enemyTag = "Enemy";
 
     public Transform partToRotate;
@@ -59,6 +65,15 @@ public class Turret : MonoBehaviour
             Debug.LogError("No audioManager found in scene");
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Meteor")
+        {
+            turretHealth -= 100;
+        }
+    }
+    
     void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -122,6 +137,11 @@ public class Turret : MonoBehaviour
             }
             fireCountdown -= Time.deltaTime;
         }
+        
+        if(turretHealth <= 0)
+        {
+            StartCoroutine(TurretDestroy());
+        }
     }
     
     void LockOnTarget()
@@ -174,5 +194,12 @@ public class Turret : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,range);
+    }
+    IEnumerator TurretDestroy()
+    {
+        GameObject DestroyParticles = (GameObject)Instantiate(destroyParticles, transform.position, transform.rotation);
+        Destroy(this.gameObject);
+        yield return new WaitForSeconds(3f);
+        Destroy(DestroyParticles);
     }
 }

@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 530058744070932403}
   - component: {fileID: 4317291324902687968}
   - component: {fileID: -3333310882708734307}
+  - component: {fileID: 184350901262888476}
   m_Layer: 0
   m_Name: LaserBeamer
   m_TagString: turret
@@ -264,7 +265,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 223b18792314b2d489ee06481fe3e914, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0346a9247d2fcad4692757d882997c67, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -350,6 +351,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &184350901262888476
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530058744070932402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4186801, y: 1.6444936, z: 1.3104615}
+  m_Center: {x: 0.02025646, y: 0.7677095, z: 0.0067489147}
 --- !u!1 &1321418459203849555
 GameObject:
   m_ObjectHideFlags: 0
