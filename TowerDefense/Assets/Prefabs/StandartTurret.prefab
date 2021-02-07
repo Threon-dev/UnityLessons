@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 15
   turretHealth: 100
-  destroyParticles: {fileID: 5998996706381383947, guid: 3aae99f9e774be04b863a7ee79d244d8,
+  destroyParticles: {fileID: 1773571449486161439, guid: fe99ea1e059994b44a448a180faf3fde,
     type: 3}
   standartBullet: 1
   standartBulletSound: StandartBulletSound

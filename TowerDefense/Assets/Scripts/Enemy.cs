@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     public int worth;
 
     public float enemyStartHealth = 100;
-    [HideInInspector]
     public float enemyHealth;
 
     public GameObject enemyDeathParticle;
@@ -18,7 +17,8 @@ public class Enemy : MonoBehaviour
     [Header("Unity Stuff")]
     public Image healthBar;
 
-    private bool isDead = false;
+    [HideInInspector]
+    public bool isDead = false;
 
     [HideInInspector]
     public bool shieldIsOn = false;
@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
 
         Debug.Log("Enemies alive: " + WaveSpawner.EnemiesAlive);
 
-        Destroy(gameObject);
+        Destroy(gameObject,1f);
     }
    
     

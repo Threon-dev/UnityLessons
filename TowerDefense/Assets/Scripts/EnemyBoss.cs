@@ -10,7 +10,15 @@ public class EnemyBoss : MonoBehaviour
 
     Enemy enemy;
 
+    [Header("Main")]
+    public Renderer rend;
     public GameObject cam;
+    public Material material;
+    public Shader shader;
+    public float spawnEffectTime = 1f;
+    public float effect = 1f;
+    public float effectRate = 0.5f;
+    
 
     [Header("Destroy")]
     public bool CanDestroy = false;
@@ -51,32 +59,32 @@ public class EnemyBoss : MonoBehaviour
     private void Start()
     {
         enemy = GetComponent<Enemy>();
+        material = new Material(material);
+        rend.material = material;
     }
-
-    void RegenHealth()
-    {
-        enemy.enemyHealth += regenHealth;
-        Debug.Log("Boss regened 1000 health");
-        Debug.Log("Current boss health" + enemy.enemyHealth);
-    }
-
-    IEnumerator GetShield()
-    {
-        InvokeRepeating("Destroy", shieldTimer + 2f, .2f);
-        enemy.shieldIsOn = true;
-        shieldIsBroken = true;
-        GameObject shieldObj = (GameObject)Instantiate(shieldGO,boss);
-        yield return new WaitForSeconds(shieldTimer);
-        enemy.shieldIsOn = false;
-        yield return new WaitForSeconds(1f);
-        Destroy(shieldObj); 
-    }
-
     private void Update()
-    {
+    {     
+        material.SetFloat("EffectVector", effect);
 
+        if (enemy.enemyHealth > 0f)
+        {
+            while (effect >= 0f)
+            {
+                effect -= Time.deltaTime * effectRate;
+                return;
+            }
+        }
 
-        if(HasRegenHealth == true)
+        if (enemy.enemyHealth <= 0f)
+        {
+            while (effect <= 1f)
+            {
+                effect += Time.deltaTime * effectRate*2f;
+                return;
+            }
+        }
+
+        if (HasRegenHealth == true)
         {
             timeToRegen -= Time.deltaTime;
 
@@ -124,6 +132,26 @@ public class EnemyBoss : MonoBehaviour
             enemy.startSpeed -= Time.deltaTime * stopSpeedRate;
         }
     }
+
+    void RegenHealth()
+    {
+        enemy.enemyHealth += regenHealth;
+        Debug.Log("Boss regened 1000 health");
+        Debug.Log("Current boss health" + enemy.enemyHealth);
+    }
+
+    IEnumerator GetShield()
+    {
+        InvokeRepeating("DestroyShieldShotParticles", shieldTimer + 2f, .2f);
+        enemy.shieldIsOn = true;
+        shieldIsBroken = true;
+        GameObject shieldObj = (GameObject)Instantiate(shieldGO,boss);
+        yield return new WaitForSeconds(shieldTimer);
+        enemy.shieldIsOn = false;
+        yield return new WaitForSeconds(1f);
+        Destroy(shieldObj); 
+    }
+
 
     public void FindTurret()
     {
@@ -177,7 +205,7 @@ public class EnemyBoss : MonoBehaviour
         enemy.startSpeed = 2.5f;
         hasMeteor = true;
     }
-    private void Destroy()
+    private void DestroyShieldShotParticles()
     {
         GameObject destroy = GameObject.FindGameObjectWithTag("ShieldParticles");
         Destroy(destroy);
