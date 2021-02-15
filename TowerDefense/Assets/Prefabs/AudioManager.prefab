@@ -51,10 +51,80 @@ MonoBehaviour:
     randomVolume: 0.1
     randomPitch: 0.4
     loop: 0
+  - name: MissileExplosion
+    clip: {fileID: 8300000, guid: ce1b556f6a73d914e9e126db64ffb4aa, type: 3}
+    volume: 0.7
+    pitch: 0.7
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: LaserSound
+    clip: {fileID: 8300000, guid: 09b9de969d37ae34b84d8fbd99e04fe5, type: 3}
+    volume: 0.7
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0.113
+    loop: 1
+  - name: StandartBulletSound
+    clip: {fileID: 8300000, guid: 38e6bbe029b6ec84f9c14ad06abd836c, type: 3}
+    volume: 0.7
+    pitch: 1
+    randomVolume: 0.1
+    randomPitch: 0
+    loop: 0
   - name: BuildingComplete
     clip: {fileID: 8300000, guid: 7b4775b38595b1843a41cd78b5104769, type: 3}
     volume: 0.7
     pitch: 0.7
-    randomVolume: 0.1
-    randomPitch: 0.4
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: GameOver
+    clip: {fileID: 8300000, guid: c282c5fe1b398004eb39e331b62a4e04, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: HoverSound
+    clip: {fileID: 8300000, guid: 4fdc3acce0ee7ad479c9c7fa33b017c2, type: 3}
+    volume: 0.2
+    pitch: 0.5
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: ClickSound
+    clip: {fileID: 8300000, guid: bcd6c678388c4494ab2bd8ac06f15e53, type: 3}
+    volume: 0.5
+    pitch: 0.6
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: Intro
+    clip: {fileID: 8300000, guid: 99718df2cf049c74f925d27b4931d517, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: MainMenuMelody
+    clip: {fileID: 8300000, guid: cf3af00807a828441bbc1c463bf451b5, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: ShieldBlock
+    clip: {fileID: 8300000, guid: 88535edfad1787949bdcad1ecb4ab987, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    loop: 0
+  - name: LevelMusic
+    clip: {fileID: 8300000, guid: a49b5197500efa54e8912214a0009269, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
     loop: 0

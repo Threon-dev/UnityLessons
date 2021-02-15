@@ -79,6 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 20
+  turretHealth: 100
+  destroyParticles: {fileID: 1773571449486161439, guid: fe99ea1e059994b44a448a180faf3fde,
+    type: 3}
   standartBullet: 1
   standartBulletSound: StandartBulletSound
   bulletPrefab: {fileID: 4937615353136997947, guid: c4f37c4f5f8f0f64a873e6a99bd4c70b,
@@ -94,6 +97,7 @@ MonoBehaviour:
   laserSound: LaserSound
   missile: 0
   missileSound: MissileSound
+  boomEffect: {fileID: 0}
   enemyTag: Enemy
   partToRotate: {fileID: 8022512272421131840}
   turnSpeed: 10

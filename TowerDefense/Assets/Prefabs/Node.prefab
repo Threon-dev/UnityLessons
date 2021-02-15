@@ -115,5 +115,7 @@ MonoBehaviour:
     cost: 0
     upgradedPrefab: {fileID: 0}
     upgradeCost: 0
+    secondUpgradePrefab: {fileID: 0}
+    secondUpgradeCost: 0
   isUpgraded: 0
   buildingComplete: BuildingComplete

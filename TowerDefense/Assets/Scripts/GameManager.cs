@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gameIsOver = false;
-        audioManager = AudioManager.instance;
+        audioManager = AudioManager.instance;      
     }
     void Update()
     {

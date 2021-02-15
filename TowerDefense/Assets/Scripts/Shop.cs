@@ -20,17 +20,17 @@ public class Shop : MonoBehaviour
     }
     public void SelectStandartTurret()
     {
-        Debug.Log("Standart turret Selected");
+        //Debug.Log("Standart turret Selected");
         buildManager.SelectTurretToBuild(standartTurret);
     }
     public void SelectMissileTurret()
     {
-        Debug.Log("Missile turret Selected");
+        //Debug.Log("Missile turret Selected");
         buildManager.SelectTurretToBuild(missileLauncher);
     }
     public void SelectLaserBeamer()
     {
-        Debug.Log("Laser beamer Selected");
+        //Debug.Log("Laser beamer Selected");
         buildManager.SelectTurretToBuild(laserBeamer);
     }
 }

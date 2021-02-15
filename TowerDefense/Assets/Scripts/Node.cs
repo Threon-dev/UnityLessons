@@ -13,7 +13,7 @@ public class Node : MonoBehaviour
     [HideInInspector]
     public TurretBlueprint turretBlueprint;
     [HideInInspector]
-    public bool isUpgraded = false; 
+    public int isUpgraded = 0; 
 
     BuildManager buildManager;
 
@@ -71,34 +71,65 @@ public class Node : MonoBehaviour
         GameObject buildEffectObject = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(buildEffectObject, 2f);
 
-        Debug.Log("Turret build");
+        //Debug.Log("Turret build");
 
         audioManager.PlaySound(buildingComplete);
     }
 
     public void UpgradeTurret()
     {
-        if (PlayerStats.Money < turretBlueprint.upgradeCost)
+        if(isUpgraded == 0)
         {
-            Debug.Log("Not enough money to upgrade that");
+            if (PlayerStats.Money < turretBlueprint.upgradeCost)
+            {
+                Debug.Log("Not enough money to upgrade that");
+                return;
+            }
+
+            PlayerStats.Money -= turretBlueprint.upgradeCost;
+
+            //Get rid of the old turret
+            Destroy(turret);
+
+            //Building a new one
+            GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+            turret = _turret;
+
+            GameObject buildEffectObject = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(buildEffectObject, 2f);
+
+            isUpgraded = 1;
+
+            Debug.Log("Turret upgraded!");
+
             return;
         }
 
-        PlayerStats.Money -= turretBlueprint.upgradeCost;
+        if (isUpgraded == 1)
+        {
+            if (PlayerStats.Money < turretBlueprint.secondUpgradeCost)
+            {
+                Debug.Log("Not enough money to upgrade that");
+                return;
+            }
 
-        //Get rid of the old turret
-        Destroy(turret);
+            PlayerStats.Money -= turretBlueprint.secondUpgradeCost;
 
-        //Building a new one
-        GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
-        turret = _turret;
+            //Get rid of the old turret
+            Destroy(turret);
 
-        GameObject buildEffectObject = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
-        Destroy(buildEffectObject, 2f);
+            //Building a new one
+            GameObject _turret = (GameObject)Instantiate(turretBlueprint.secondUpgradePrefab, GetBuildPosition(), Quaternion.identity);
+            turret = _turret;
 
-        isUpgraded = true;
-        
-        Debug.Log("Turret upgraded!");
+            GameObject buildEffectObject = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+            Destroy(buildEffectObject, 2f);
+
+            isUpgraded = 2;
+
+            Debug.Log("Turret upgraded! x2");
+        }
+
     } 
     
     public void SellTurret()

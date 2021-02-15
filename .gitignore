@@ -19,6 +19,15 @@ TowerDefense/Library/
 TowerDefense/Logs/
 TowerDefense/obj/
 TowerDefense/UnityGenerated/
+ThirdPersonMovement/Xcode/
+ThirdPersonMovement/XcodeSimulator/
+ThirdPersonMovement/Build/
+ThirdPersonMovement/Builds/
+ThirdPersonMovement/Temp/
+ThirdPersonMovement/Library/
+ThirdPersonMovement/Logs/
+ThirdPersonMovement/obj/
+ThirdPersonMovement/UnityGenerated/
 Cubethon/Xcode/
 Cubethon/XcodeSimulator/
 Cubethon/Build/

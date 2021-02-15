@@ -7,7 +7,9 @@ public class Turret : MonoBehaviour
 
     [Header("General")]
     public float range = 15f;
-    public int turretHealth = 100;
+    public float turretHealth = 100f;
+    public float meteorDamage = 100f;
+    public string destroySound = "TurretDestroy";
 
     public GameObject destroyParticles;
 
@@ -70,7 +72,8 @@ public class Turret : MonoBehaviour
     {
         if(other.tag == "Meteor")
         {
-            turretHealth -= 100;
+            turretHealth -= meteorDamage;
+            audioManager.PlaySound(destroySound);
         }
     }
     

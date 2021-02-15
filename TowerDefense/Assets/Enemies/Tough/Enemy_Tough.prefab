@@ -109,14 +109,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed74b75a6996d848b2832ac6d505d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 5
+  rend: {fileID: 432752947810544823}
+  material: {fileID: 2100000, guid: 9949bfd91fce87f43aeb311ba803174d, type: 2}
+  spawnEffectTime: 1
+  effect: 1
+  effectRate: 0.6
   speed: 10
   worth: 100
   enemyStartHealth: 600
   enemyHealth: 0
+  startSpeed: 5
   enemyDeathParticle: {fileID: 2127595253887464768, guid: 8356cc39ee6c9e649850d16978bc9ca2,
     type: 3}
   healthBar: {fileID: 4350402981071393481}
+  isDead: 0
   shieldIsOn: 0
 --- !u!114 &3283365268885847226
 MonoBehaviour:

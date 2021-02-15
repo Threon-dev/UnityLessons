@@ -10,16 +10,9 @@ public class EnemyBoss : MonoBehaviour
 
     Enemy enemy;
 
-    [Header("Main")]
-    public Renderer rend;
+    [Header("Main")]  
     public GameObject cam;
-    public Material material;
-    public Shader shader;
-    public float spawnEffectTime = 1f;
-    public float effect = 1f;
-    public float effectRate = 0.5f;
     
-
     [Header("Destroy")]
     public bool CanDestroy = false;
     public bool hasMeteor = true;
@@ -40,10 +33,15 @@ public class EnemyBoss : MonoBehaviour
 
     [Header("Regen Health Settings")]
     public bool HasRegenHealth = false;
+    private bool isRegened = false;
 
-    public float regenHealth = 1000f;
+    public float regenHealthRate = 200;
     public float timeToRegen = 15f;
     public float nextTimeToRegen = 20f;
+    public int regenTimer = 5;
+    public int maxHealthRegen = 1000;
+
+    public GameObject regenHealthImage;
 
     [Header("Shield Settings")]
     public bool HasShield = false;
@@ -59,71 +57,72 @@ public class EnemyBoss : MonoBehaviour
     private void Start()
     {
         enemy = GetComponent<Enemy>();
-        material = new Material(material);
-        rend.material = material;
     }
     private void Update()
-    {     
-        material.SetFloat("EffectVector", effect);
-
-        if (enemy.enemyHealth > 0f)
-        {
-            while (effect >= 0f)
-            {
-                effect -= Time.deltaTime * effectRate;
-                return;
-            }
-        }
-
-        if (enemy.enemyHealth <= 0f)
-        {
-            while (effect <= 1f)
-            {
-                effect += Time.deltaTime * effectRate*2f;
-                return;
-            }
-        }
-
+    {
         if (HasRegenHealth == true)
         {
             timeToRegen -= Time.deltaTime;
-
-            if (timeToRegen <= 0)
+            if (isRegened == false)
             {
-                if (enemy.enemyHealth <= enemy.enemyStartHealth - regenHealth)
+                if (enemy.enemyHealth <= enemy.enemyStartHealth - maxHealthRegen)
                 {
-                    timeToRegen = nextTimeToRegen;
-                    RegenHealth();
+                    StartCoroutine(Regen());
                 }
             }
         }
 
-        if(HasShield == true)
-        { 
-            if (shieldIsBroken == false && enemy.enemyHealth <= enemy.enemyStartHealth / 2f)
-            {
-                StartCoroutine(GetShield());
-                shieldTimer -= Time.deltaTime;
-            }            
+        if (HasShield == true)
+        {
+            Shield();
         }
 
         if (CanDestroy == true)
         {
-            destroyCountdown -= Time.deltaTime;
+            Destroy();
+        }
+    }
 
-            if(hasMeteor == true)
+    IEnumerator Regen()
+    {
+        if (timeToRegen <= 0)
+        {
+            regenHealthImage.SetActive(true);
+            isRegened = true;
+
+            for (int i = 0; i < regenTimer; i++)
             {
-                FindTurret();           
+                enemy.enemyHealth += regenHealthRate;
+                enemy.healthBar.fillAmount = enemy.enemyHealth / enemy.enemyStartHealth;
+                Debug.Log("Boss health: " + enemy.enemyHealth);
+                yield return new WaitForSeconds(1f);
             }
 
-            if (destroyCountdown <= 0 && hasMeteor == true)
+            regenHealthImage.SetActive(false);
+            timeToRegen = nextTimeToRegen;
+            isRegened = false;
+        }
+    }
+
+    void Destroy()
+    {
+        destroyCountdown -= Time.deltaTime;
+
+        if (hasMeteor == true)
+        {
+            FindTurret();
+        }
+
+        if (destroyCountdown <= 0 && hasMeteor == true)
+        {
+            if(target != null)
             {
                 timeToDropMeteor = true;
+            }
 
-                if (enemy.startSpeed <= 0)
-                {
-                    StartCoroutine(DropTheMeteor());               
-                }
+            if (enemy.startSpeed <= 0)
+            {
+                StartCoroutine(DropTheMeteor());
             }
         }
 
@@ -133,11 +132,13 @@ public class EnemyBoss : MonoBehaviour
         }
     }
 
-    void RegenHealth()
+    void Shield()
     {
-        enemy.enemyHealth += regenHealth;
-        Debug.Log("Boss regened 1000 health");
-        Debug.Log("Current boss health" + enemy.enemyHealth);
+        if (shieldIsBroken == false && enemy.enemyHealth <= enemy.enemyStartHealth / 2f)
+        {
+            StartCoroutine(GetShield());
+            shieldTimer -= Time.deltaTime;
+        }
     }
 
     IEnumerator GetShield()
@@ -152,6 +153,19 @@ public class EnemyBoss : MonoBehaviour
         Destroy(shieldObj); 
     }
 
+    IEnumerator DropTheMeteor()
+    {
+        hasMeteor = false;
+        GameObject meteor = (GameObject)Instantiate(meteorPrefab, spawnPosit.position,spawnPosit.rotation);
+        GameObject targetSel = (GameObject)Instantiate(targetSelectedParticle, particleSpawnPosit.position,particleSpawnPosit.rotation);
+        Destroy(targetSel,2f);
+        Destroy(meteor, 10f);
+        yield return new WaitForSeconds(3f);
+        timeToDropMeteor = false;
+        destroyCountdown = nextTimeToDestroy;
+        enemy.startSpeed = 2.5f;
+        hasMeteor = true;
+    }
 
     public void FindTurret()
     {
@@ -192,23 +206,10 @@ public class EnemyBoss : MonoBehaviour
             particleSpawnPosit.transform.position = targetSelected;
         }
     }
-    IEnumerator DropTheMeteor()
-    {
-        hasMeteor = false;
-        GameObject meteor = (GameObject)Instantiate(meteorPrefab, spawnPosit.position,spawnPosit.rotation);
-        GameObject targetSel = (GameObject)Instantiate(targetSelectedParticle, particleSpawnPosit.position,particleSpawnPosit.rotation);
-        Destroy(targetSel,2f);
-        Destroy(meteor, 10f);
-        yield return new WaitForSeconds(3f);
-        timeToDropMeteor = false;
-        destroyCountdown = nextTimeToDestroy;
-        enemy.startSpeed = 2.5f;
-        hasMeteor = true;
-    }
+
     private void DestroyShieldShotParticles()
     {
         GameObject destroy = GameObject.FindGameObjectWithTag("ShieldParticles");
         Destroy(destroy);
     }
-    
 }

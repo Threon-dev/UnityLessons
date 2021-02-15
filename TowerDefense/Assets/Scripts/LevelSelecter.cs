@@ -7,8 +7,18 @@ public class LevelSelecter : MonoBehaviour
 
     public Button[] levelButtons;
 
+    AudioManager audioManager;
+
+    public string hoverSound = "HoverSound";
+    public string clickSound = "ClickSound";
+    public string introSound = "Intro";
+
     private void Start()
     {
+        audioManager = AudioManager.instance;
+
+        audioManager.PlaySound(introSound);
+
         int levelReached = PlayerPrefs.GetInt("levelReached", 1);
 
         for (int i = 0; i < levelButtons.Length; i++)
@@ -20,6 +30,13 @@ public class LevelSelecter : MonoBehaviour
 
     public void Select(string levelName)
     {
-        fader.FadeTo(levelName); 
+        audioManager.PlaySound(clickSound);
+        fader.FadeTo(levelName);
+        audioManager.StopSound(introSound);
+    }
+
+    public void OnMouseEnter()
+    {
+        audioManager.PlaySound(hoverSound);
     }
 }

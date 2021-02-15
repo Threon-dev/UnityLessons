@@ -85,13 +85,13 @@ public class WaveSpawner : MonoBehaviour
     void SpawnEnemy(GameObject enemy)
     {
         Instantiate(enemy,spawnPoint.position,spawnPoint.rotation);
-        Debug.Log("Enemies Alive: " + EnemiesAlive);
+        //Debug.Log("Enemies Alive: " + EnemiesAlive);
     }
 
     public void NextWaveSpawn()
     {
         countdown = 0;
         waveCountdownText.text = string.Format("{0:00.00}", countdown);
-        Debug.Log("NextWaveSpawn");
+        //Debug.Log("NextWaveSpawn");
     }
 }
