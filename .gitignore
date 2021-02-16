@@ -46,6 +46,15 @@ ThirdPersonMovement/Library/
 ThirdPersonMovement/Logs/
 ThirdPersonMovement/obj/
 ThirdPersonMovement/UnityGenerated/
+TopDownMovement/Xcode/
+TopDownMovement/XcodeSimulator/
+TopDownMovement/Build/
+TopDownMovement/Builds/
+TopDownMovement/Temp/
+TopDownMovement/Library/
+TopDownMovement/Logs/
+TopDownMovement/obj/
+TopDownMovement/UnityGenerated/
 Cubethon/Xcode/
 Cubethon/XcodeSimulator/
 Cubethon/Build/
