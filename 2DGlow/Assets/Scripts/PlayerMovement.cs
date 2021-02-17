@@ -39,18 +39,11 @@ public class PlayerMovement : MonoBehaviour
         {
             jump = true;
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            anim.SetBool("Punch", true);
-        }
     }
 
     private void FixedUpdate()
     {
         controller.Move(horizontalMove*Time.fixedDeltaTime, false, jump);
         jump = false;
-
-        anim.SetBool("Punch", false);
     }
 }
