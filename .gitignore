@@ -73,6 +73,15 @@ Fireworks/Library/
 Fireworks/Logs/
 Fireworks/obj/
 Fireworks/UnityGenerated/
+CutTheBush/Xcode/
+CutTheBush/XcodeSimulator/
+CutTheBush/Build/
+CutTheBush/Builds/
+CutTheBush/Temp/
+CutTheBush/Library/
+CutTheBush/Logs/
+CutTheBush/obj/
+CutTheBush/UnityGenerated/
 CartoonWater/Xcode/
 CartoonWater/XcodeSimulator/
 CartoonWater/Build/
