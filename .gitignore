@@ -73,6 +73,15 @@ Fireworks/Library/
 Fireworks/Logs/
 Fireworks/obj/
 Fireworks/UnityGenerated/
+Lightning/Xcode/
+Lightning/XcodeSimulator/
+Lightning/Build/
+Lightning/Builds/
+Lightning/Temp/
+Lightning/Library/
+Lightning/Logs/
+Lightning/obj/
+Lightning/UnityGenerated/
 CutTheBush/Xcode/
 CutTheBush/XcodeSimulator/
 CutTheBush/Build/
