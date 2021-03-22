@@ -122,6 +122,7 @@ MonoBehaviour:
   enemyDeathParticle: {fileID: 2127595253887464768, guid: 8356cc39ee6c9e649850d16978bc9ca2,
     type: 3}
   healthBar: {fileID: 4350402981071393481}
+  healthBarObject: {fileID: 2140842709872339275}
   isDead: 0
   shieldIsOn: 0
 --- !u!114 &3283365268885847226

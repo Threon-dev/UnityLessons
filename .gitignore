@@ -28,6 +28,15 @@ TowerDefense/UnityGenerated/
 2DGlow/Logs/
 2DGlow/obj/
 2DGlow/UnityGenerated/
+NavMesh/Xcode/
+NavMesh/XcodeSimulator/
+NavMesh/Build/
+NavMesh/Builds/
+NavMesh/Temp/
+NavMesh/Library/
+NavMesh/Logs/
+NavMesh/obj/
+NavMesh/UnityGenerated/
 2DShaderGraph/Xcode/
 2DShaderGraph/XcodeSimulator/
 2DShaderGraph/Build/

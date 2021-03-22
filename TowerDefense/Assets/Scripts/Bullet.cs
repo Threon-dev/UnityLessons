@@ -10,14 +10,11 @@ public class Bullet : MonoBehaviour
 
     public int damage;
 
-    Enemy enemy;
     AudioManager audioManager;
     public string explosionSound = "MissileExplosion";
 
     private void Start()
     {
-        enemy = GetComponent<Enemy>();
-
         audioManager = AudioManager.instance;
 
         if (audioManager == null)
@@ -36,6 +33,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Vector3 dir = target.position - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
 
