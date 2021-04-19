@@ -136,6 +136,15 @@ CosmoBoy2D/Library/
 CosmoBoy2D/Logs/
 CosmoBoy2D/obj/
 CosmoBoy2D/UnityGenerated/
+FirstCodeMonkeyLesson/Xcode/
+FirstCodeMonkeyLesson/XcodeSimulator/
+FirstCodeMonkeyLesson/Build/
+FirstCodeMonkeyLesson/Builds/
+FirstCodeMonkeyLesson/Temp/
+FirstCodeMonkeyLesson/Library/
+FirstCodeMonkeyLesson/Logs/
+FirstCodeMonkeyLesson/obj/
+FirstCodeMonkeyLesson/UnityGenerated/
 .vs/
 .idea
 /Assets/_TerrainAutoUpgrade/
