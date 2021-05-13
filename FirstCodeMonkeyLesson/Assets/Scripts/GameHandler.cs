@@ -8,8 +8,12 @@ using CodeMonkey.Utils;
 public class GameHandler : MonoBehaviour {
 
     public Transform pfHealthBar;
+    public CameraFollow cameraFollow;
 
     void Start() {
+
+        cameraFollow.Setup(() => new Vector3(0, -100));
+
         HealthSystem healthSystem = new HealthSystem(100);
 
         Transform healthBarTransform = Instantiate(pfHealthBar, new Vector3(0, 10), Quaternion.identity);
