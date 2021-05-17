@@ -573,9 +573,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e472846a638e354fa966c6b43aaa1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 7c233a4f0bae53e43a7e491f7b49a569, type: 2}
   pfHealthBar: {fileID: 223191325575324425, guid: 54e4664c1af68ca4c9fbacfd1ee91bbe,
     type: 3}
   cameraFollow: {fileID: 1654328984}
+  playerTransform: {fileID: 992855678}
 --- !u!1 &1493211433
 GameObject:
   m_ObjectHideFlags: 0
